@@ -5,36 +5,35 @@ const textarea = form.querySelector("textarea");
 const emailInput = form.querySelector('input[type="email"]');
 
 form.addEventListener("submit", handleSubmit);
-form.addEventListener("input", onTextareaInput);
+form.addEventListener("input", saveToLocalStorage);
 
 populateTextarea();
 
 function handleSubmit(event) {
     event.preventDefault();
-    console.log("send");
-    const formData = {
-        email: emailInput.value,
-        message: textarea.value
-    };
-    console.log("Form data:", formData);
-    event.currentTarget.reset();
-    localStorage.removeItem(STORAGE_KEY);
+    saveToLocalStorage();
+    event.target.reset();
+    //localStorage.removeItem(STORAGE_KEY);
 }
 
-function onTextareaInput(event) {
-    const message = event.target.value;
-    localStorage.setItem(STORAGE_KEY, message);
+
+function saveToLocalStorage() {
+    const formData = {
+        email: emailInput.value.trim(),
+        message: textarea.value.trim()
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 }
 
 
 function populateTextarea() {
-    const savedEmail = localStorage.getItem("email");
-    const savedMessage = localStorage.getItem(STORAGE_KEY);
+    let localStorageData = localStorage.getItem(STORAGE_KEY);
+    localStorageData = JSON.parse(localStorageData);
 
-    if (savedEmail) {
-        emailInput.value = savedEmail;
+    if (localStorageData?.email) {
+        emailInput.value = localStorageData.email;
     }
-    if(savedMessage) {
-        textarea.value = savedMessage;
+    if(localStorageData?.message) {
+        textarea.value = localStorageData.message;
     }
 }
