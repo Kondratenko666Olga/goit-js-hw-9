@@ -4,7 +4,7 @@ const form = document.querySelector(".feedback-form");
 const textarea = form.querySelector("textarea");
 
 form.addEventListener("submit", handleSubmit);
-textarea.addEventListener("input", onTextareaInput);
+form.addEventListener("input", onTextareaInput);
 
 populateTextarea();
 
@@ -24,6 +24,6 @@ function populateTextarea() {
     const savedMessage = localStorage.getItem(STORAGE_KEY);
 
     if(savedMessage) {
-        textarea.value = savedMessage;
+        form.value = savedMessage;
     }
 }
