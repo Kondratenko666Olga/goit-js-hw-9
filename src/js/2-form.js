@@ -13,7 +13,12 @@ function handleSubmit(event) {
     event.preventDefault();
     saveToLocalStorage();
     event.target.reset();
-    //localStorage.removeItem(STORAGE_KEY);
+    
+    let localStorageData = localStorage.getItem(STORAGE_KEY);
+    localStorageData = JSON.parse(localStorageData);
+    console.log(localStorageData);
+
+    localStorage.removeItem(STORAGE_KEY);
 }
 
 
