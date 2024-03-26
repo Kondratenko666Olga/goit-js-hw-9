@@ -11,11 +11,20 @@ populateTextarea();
 
 function handleSubmit(event) {
     event.preventDefault();
-    saveToLocalStorage();
-    event.target.reset();
     
     let localStorageData = localStorage.getItem(STORAGE_KEY);
     localStorageData = JSON.parse(localStorageData);
+    if (!localStorageData?.email) {
+        alert(`Поле e-mail має бути заповнене`);
+        return;
+    }
+    if(!localStorageData?.message) {
+        alert('Поле Message має бути заповнене');
+        return;
+    }
+
+    event.target.reset();
+    
     console.log(localStorageData);
 
     localStorage.removeItem(STORAGE_KEY);
